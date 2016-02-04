@@ -18,7 +18,7 @@ npm install tidalapi
 Simple usage searching and querying a track list
 
 ```javascript
-var TidalAPI = require('../');
+var TidalAPI = require('tidalapi');
 
 
 var api = new TidalAPI({
