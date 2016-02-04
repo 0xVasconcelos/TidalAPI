@@ -24,3 +24,6 @@ api.searchVideos({query: 'Dream Theater', limit: 1}, function(data){
   console.log(data);
 })
 
+api.getStreamURL({id: 22560696}, function(data){
+  console.log(data)
+})
