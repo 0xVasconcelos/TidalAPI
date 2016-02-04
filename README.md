@@ -15,7 +15,7 @@ Run the following:
 npm install tidalapi
 ```
 
-Simple usage searching and querying a song Stream
+Simple usage searching and querying a track list
 
 ```javascript
 var TidalAPI = require('../');
