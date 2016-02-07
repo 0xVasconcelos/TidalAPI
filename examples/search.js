@@ -4,7 +4,7 @@ var TidalAPI = require('../');
 var api = new TidalAPI({
     username: '',
     password: '',
-    token: 'wdgaB1CilGA-S_s2',
+    token: '_KM2HixcUBZtmktH',
     quality: 'LOSSLESS'
 });
 
@@ -27,6 +27,10 @@ api.search({type: 'tracks,albums,artists', query: 'Dream Theater', limit: 1}, fu
 })
 
 api.getStreamURL({id: 22560696}, function(data){
+  console.log(data)
+})
+
+api.getVideoStreamURL({id: 25470315}, function(data){
   console.log(data)
 })
 
