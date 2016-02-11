@@ -65,7 +65,7 @@ api.getArtistVideos({id: 14670, limit: 2}, function(data){
 
 api.genMetaflacTags({id: 22560696, coverPath: './albumart.jpg', songPath: './song.flac'}, function(data){
   console.log(data)
-  /* --remove-all-tags --set-tag="ARTIST=Dream Theater" --set-tag="TITLE=Along For The Ride" --set-tag="ALBUM=Dream Theater" --set- tag="TRACKNUMBER=8" --set-tag="COPYRIGHT=2013 Roadrunner Records, Inc." -set-tag="DATE=2013" --import-picture-from="./albumart.jpg" "./song.flac" --add-replay-gain */
+  /* --remove-all-tags --set-tag="ARTIST=Dream Theater" --set-tag="TITLE=Along For The Ride" --set-tag="ALBUM=Dream Theater" --set-tag="TRACKNUMBER=8" --set-tag="COPYRIGHT=2013 Roadrunner Records, Inc." -set-tag="DATE=2013" --import-picture-from="./albumart.jpg" "./song.flac" --add-replay-gain */
 
 })
 
