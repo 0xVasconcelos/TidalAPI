@@ -45,6 +45,10 @@ api.search({type: 'tracks,albums,artists', query: 'Dream Theater', limit: 1}, fu
   console.log(data.artists);
 })
 
+api.getTrackInfo({id: 22560696 }, function(data){
+  console.log(data)
+})
+
 api.getStreamURL({id: 22560696}, function(data){
   console.log(data)
 })
@@ -59,5 +63,8 @@ api.getArtistVideos({id: 14670, limit: 2}, function(data){
   console.log(data)
 })
 
+api.genMetaflacTags({id: 22560696, coverPath: './albumart.jpg', songPath: './song.flac'}, function(data){
+  console.log(data)
+})
 
 ```

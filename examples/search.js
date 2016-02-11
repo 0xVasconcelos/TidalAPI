@@ -26,6 +26,10 @@ api.search({type: 'tracks,albums,artists', query: 'Dream Theater', limit: 1}, fu
   console.log(data.artists);
 })
 
+api.getTrackInfo({id: 22560696 }, function(data){
+  console.log(data)
+})
+
 api.getStreamURL({id: 22560696}, function(data){
   console.log(data)
 })
@@ -37,5 +41,9 @@ api.getVideoStreamURL({id: 25470315}, function(data){
 console.log(api.getArtURL('24f52ab0-e7d6-414d-a650-20a4c686aa57', 1280)) //coverid
 
 api.getArtistVideos({id: 14670, limit: 2}, function(data){
+  console.log(data)
+})
+
+api.genMetaflacTags({id: 22560696, coverPath: './albumart.jpg', songPath: './song.flac'}, function(data){
   console.log(data)
 })
