@@ -5,6 +5,7 @@ var api = new TidalAPI({
     username: '',
     password: '',
     token: '_KM2HixcUBZtmktH',
+    clientVersion: '2.2.1--7',
     quality: 'LOSSLESS'
 });
 
