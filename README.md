@@ -84,8 +84,7 @@ api.getStreamURL({id: 22560696}, function(data){
 
 api.getVideoStreamURL({id: 25470315}, function(data){
   console.log(data)
-})
-```
+})```
 
 ### Album Art
 
