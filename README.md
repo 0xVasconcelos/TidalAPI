@@ -73,7 +73,7 @@ api.search({type: 'tracks,albums,artists', query: 'Dream Theater', limit: 1}, fu
 ```javascript
 api.getTrackInfo({id: 22560696 }, function(data){
   console.log(data)
-})
+})```
 
 ### Streams
 
