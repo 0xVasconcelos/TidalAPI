@@ -44,6 +44,8 @@ var api = new TidalAPI({
     quality: 'LOSSLESS'
 });
 
+### Search
+
 api.search({type: 'artists', query: 'Dream Theater', limit: 1}, function(data){
   console.log(data.artists);
 })
@@ -62,9 +64,13 @@ api.search({type: 'tracks,albums,artists', query: 'Dream Theater', limit: 1}, fu
   console.log(data.artists);
 })
 
+### Track info
+
 api.getTrackInfo({id: 22560696 }, function(data){
   console.log(data)
 })
+
+### Streams
 
 api.getStreamURL({id: 22560696}, function(data){
   console.log(data)
@@ -74,11 +80,17 @@ api.getVideoStreamURL({id: 25470315}, function(data){
   console.log(data)
 })
 
+### Album Art
+
 console.log(api.getArtURL('24f52ab0-e7d6-414d-a650-20a4c686aa57', 1280)) //coverid
+
+### Videos
 
 api.getArtistVideos({id: 14670, limit: 2}, function(data){
   console.log(data)
 })
+
+### FLAC tags
 
 api.genMetaflacTags({id: 22560696, coverPath: './albumart.jpg', songPath: './song.flac'}, function(data){
   console.log(data)
