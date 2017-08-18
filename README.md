@@ -21,9 +21,9 @@ Simple usage searching and querying a track list
 var TidalAPI = require('tidalapi');
 
 var api = new TidalAPI({
-    username: '',
-    password: '',
-    token: '_KM2HixcUBZtmktH',
+    username: 'your-username-here',
+    password: 'your-password-here',
+    token: 'your-token-here',
     quality: 'LOSSLESS'
 });
 
