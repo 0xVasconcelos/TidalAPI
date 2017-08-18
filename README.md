@@ -38,15 +38,17 @@ Simple usage searching and querying a track list
 var TidalAPI = require('tidalapi');
 
 var api = new TidalAPI({
-    username: 'your-username-here',
-    password: 'your-password-here',
-    token: 'your-token-here',
-    // Could also be 'LOSSLESS' but this only supported on premium subscriptions
-    quality: 'HIGH'
+  username: 'your-username-here',
+  password: 'your-password-here',
+  token: 'your-token-here',
+  // Could also be 'LOSSLESS' but this only supported on premium subscriptions
+  quality: 'HIGH'
 });
+```
 
 ### Search
 
+```javascript
 api.search({type: 'artists', query: 'Dream Theater', limit: 1}, function(data){
   console.log(data.artists);
 })
@@ -64,15 +66,18 @@ api.search({type: 'tracks,albums,artists', query: 'Dream Theater', limit: 1}, fu
   console.log(data.albums);
   console.log(data.artists);
 })
+```
 
 ### Track info
 
+```javascript
 api.getTrackInfo({id: 22560696 }, function(data){
   console.log(data)
 })
 
 ### Streams
 
+```javascript
 api.getStreamURL({id: 22560696}, function(data){
   console.log(data)
 })
@@ -80,26 +85,31 @@ api.getStreamURL({id: 22560696}, function(data){
 api.getVideoStreamURL({id: 25470315}, function(data){
   console.log(data)
 })
+```
 
 ### Album Art
 
+```javascript
 console.log(api.getArtURL('24f52ab0-e7d6-414d-a650-20a4c686aa57', 1280)) //coverid
+```
 
 ### Videos
 
+```javascript
 api.getArtistVideos({id: 14670, limit: 2}, function(data){
   console.log(data)
 })
+```
 
 ### FLAC tags
 
+```javascript
 api.genMetaflacTags({id: 22560696, coverPath: './albumart.jpg', songPath: './song.flac'}, function(data){
   console.log(data)
   /* --remove-all-tags --set-tag="ARTIST=Dream Theater" --set-tag="TITLE=Along For The Ride" --set-tag="ALBUM=Dream Theater" --set-tag="TRACKNUMBER=8" --set-tag="COPYRIGHT=2013 Roadrunner Records, Inc." -set-tag="DATE=2013" --import-picture-from="./albumart.jpg" "./song.flac" --add-replay-gain */
-
 })
-
 ```
+
 ## Troubleshooting
 
 ### 500 error with 'Ooops, an unexpected error occurred'
