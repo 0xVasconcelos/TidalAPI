@@ -100,3 +100,8 @@ api.genMetaflacTags({id: 22560696, coverPath: './albumart.jpg', songPath: './son
 })
 
 ```
+## Troubleshooting
+
+### 500 error with 'Ooops, an unexpected error occurred'
+
+Your TIDAL token is likely incorrect.
