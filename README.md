@@ -2,7 +2,7 @@
 
 ## About
 
-Node.js TIDAL API, use TIDAL Web API simply using this API ;)
+node.js TIDAL API. Use the TIDAL Web API simply using this module ;)
 
 Created by [Lucas Vasconcelos](https://github.com/lucaslg26)
 
