@@ -41,7 +41,8 @@ var api = new TidalAPI({
     username: 'your-username-here',
     password: 'your-password-here',
     token: 'your-token-here',
-    quality: 'LOSSLESS'
+    // Could also be 'LOSSLESS' but this only supported on premium subscriptions
+    quality: 'HIGH'
 });
 
 ### Search
