@@ -1,6 +1,6 @@
 {
   "name": "tidalapi",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Unofficial Node.js TIDAL API",
   "main": "./lib/client.js",
   "scripts": {
