@@ -24,7 +24,6 @@
   },
   "homepage": "https://github.com/lucaslg26/TidalAPI#readme",
   "dependencies": {
-    "deasync": "^0.1.4",
     "request": "^2.69.0"
   },
   "devDependencies": {
