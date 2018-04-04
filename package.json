@@ -24,7 +24,8 @@
   },
   "homepage": "https://github.com/lucaslg26/TidalAPI#readme",
   "dependencies": {
-    "request": "^2.69.0"
+    "request": "^2.69.0",
+    "request-promise-native": "^1.0.5"
   },
   "devDependencies": {
     "mocha": "^2.4.5"
