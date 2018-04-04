@@ -1,5 +1,5 @@
+let TidalClient = require('../');
 let credentials = require('./.config.json');
-let TidalClient = require('./client.js');
 
 let api = new TidalClient(credentials.tidal);
 
