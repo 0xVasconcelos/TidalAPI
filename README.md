@@ -7,6 +7,7 @@
 node.js TIDAL API, with Promises and playlist manipulation support.
 
 Mantainer [Lucas Deters](https://github.com/deters)
+
 This is a fork of node.js Tidal API by [Lucas Vasconcelos](https://github.com/lucaslg26)
 
 **NOTE:** Currently not supporting facebook login.
@@ -114,6 +115,7 @@ api.genMetaflacTags({id: 22560696, coverPath: './albumart.jpg', songPath: './son
 
 ### Playlist manipulation (example using async/await for clarity)
 
+```javascript
 // get the id of the current user
 let user_id = await api.getMyID();
 console.log(user_id);
@@ -171,6 +173,7 @@ console.log('Musics on the playlist now : \n',number_of_musics_on_test_playlist)
 
 result = await api.deletePlaylist(test_playlist);
 console.log('Playlist deleted. \n')
+```
 
 ## Troubleshooting
 
