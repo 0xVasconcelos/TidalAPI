@@ -1,6 +1,6 @@
 {
   "name": "tidalpromise",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "description": "Unofficial Node.js TIDAL Promise API",
   "main": "./lib/api.js",
   "scripts": {
