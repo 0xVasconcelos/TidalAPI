@@ -24,8 +24,8 @@
   },
   "homepage": "https://github.com/deters/TidalPromise#readme",
   "dependencies": {
-    "request": "^2.69.0",
-    "request-promise-native": "^1.0.5",
+    "request": "^2.88.0",
+    "request-promise-native": "^1.0.7",
     "semaphore": "^1.1.0"
   },
   "devDependencies": {
