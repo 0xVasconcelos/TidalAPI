@@ -1,14 +1,14 @@
 {
-  "name": "tidalapi",
-  "version": "0.2.3",
-  "description": "Unofficial Node.js TIDAL API",
-  "main": "./lib/client.js",
+  "name": "tidalpromise",
+  "version": "0.2.11",
+  "description": "Unofficial Node.js TIDAL Promise API",
+  "main": "./lib/api.js",
   "scripts": {
     "test": "mocha"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lucaslg26/TidalAPI.git"
+    "url": "git+https://github.com/deters/TidalPromise.git"
   },
   "keywords": [
     "node",
@@ -17,14 +17,16 @@
     "music",
     "flac"
   ],
-  "author": "Lucas Vasconcelos (lucaslg26@gmail.com)",
+  "author": "Lucas Deters (lucasdeters@gmail.com)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/lucaslg26/TidalAPI/issues"
+    "url": "https://github.com/deters/TidalPromise/issues"
   },
-  "homepage": "https://github.com/lucaslg26/TidalAPI#readme",
+  "homepage": "https://github.com/deters/TidalPromise#readme",
   "dependencies": {
-    "request": "^2.69.0"
+    "request": "^2.88.0",
+    "request-promise-native": "^1.0.7",
+    "semaphore": "^1.1.0"
   },
   "devDependencies": {
     "mocha": "^2.4.5"
