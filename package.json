@@ -4,7 +4,6 @@
   "description": "Unofficial Node.js TIDAL API",
   "main": "./lib/client.js",
   "scripts": {
-    "test": "mocha"
   },
   "repository": {
     "type": "git",
