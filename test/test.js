@@ -8,6 +8,7 @@ const password = content.password;
 
 
 describe('TidalAPI', function () {
+    this.timeout(10000);
     describe("Pre-Test (Login)", function () {
         it('Username should be filled', function () {
             assert.notEqual(username, '');
@@ -72,6 +73,48 @@ describe('TidalAPI', function () {
                 });
                 assert.equal(resp.items.length > 1, true);
             });
+        });
+        describe('getETag', function () {
+            it("ETag is not empty", async function () {
+                var api = new TidalAPI({
+                    username: username,
+                    password: password,
+                    quality: 'HIGH'
+                });
+                const resp = await api.getETagAsync( '55b2c563-a238-4ebf-9a45-284fd5fbfa53');
+                assert.notEqual(resp, '');
+                assert.notEqual(resp, null);
+            });
+        });
+
+        describe('checkIfPlaylistExists', function () {
+            it('should not find any playlist with title: `Testplaylist`', async function () {
+                var api = new TidalAPI({
+                    username: username,
+                    password: password,
+                    quality: 'HIGH'
+                });
+                await api.loginAsync();
+                const resp = await api.checkIfPlaylistExists( 'Testplaylist');
+                assert.equal(resp, null);
+            });
+
+
+        });
+        describe('createPlaylist', function () {
+            it('should create a playlist with title: `Testplaylist`', async function () {
+                var api = new TidalAPI({
+                    username: username,
+                    password: password,
+                    quality: 'HIGH'
+                });
+                await api.loginAsync();
+                const resp = await api.createPlaylistAsync( 'Testplaylist', "this is a test!");
+                assert.notEqual(resp, '');
+                assert.notEqual(resp, null);
+            });
+
+
         });
     })
 });
