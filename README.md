@@ -26,12 +26,11 @@ yarn add tidalapi
 Simple usage searching and querying a track list
 
 ```javascript
-var TidalAPI = require('tidalapi');
+import {TidalAPI} from "TidalAPI";
 
 var api = new TidalAPI({
   username: 'your-username-here',
   password: 'your-password-here',
-  token: 'your-token-here',
   // Could also be 'LOSSLESS' but this only supported on premium subscriptions
   quality: 'HIGH'
 });
@@ -86,6 +85,20 @@ const url = api.getArtUrlSync('24f52ab0-e7d6-414d-a650-20a4c686aa57', 1280);
 ```javascript
 const artistVideos = await api.getArtistVideos("14670", {limit: 2});
 console.log(artistVideos);
+```
+
+### Playlist
+```javascript
+// get general information about the playlist
+const playlistInfo = await getPlaylist("7ab5d2b6-93fb-4181-a008-a1d18e2cebfa");
+// get tracks of the playlist
+const playlistInfo = await getPlaylistTracks("7ab5d2b6-93fb-4181-a008-a1d18e2cebfa");
+```
+
+#### Manipulation
+```javascript
+const gguid = await createPlaylist("My Playlist", "Description");
+const gguid = await createPlaylistIfNotExists("MyPlaylist");
 ```
 
 

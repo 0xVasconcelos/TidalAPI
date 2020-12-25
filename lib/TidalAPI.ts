@@ -35,18 +35,6 @@ export class TidalAPI {
      * @private
      */
     private _streamQuality: string | null = null;
-
-    /**
-     * api logged in
-     * @type {null|String}
-     */
-    private _loggedIn = false;
-
-
-    get loggedIn(): boolean {
-        return this._loggedIn;
-    }
-
     /**
      * authData
      * @type {Object}
@@ -76,60 +64,14 @@ export class TidalAPI {
         this.authData = login;
     }
 
-    private async _baseRequestRaw(url: string, params = null, method: string, additionalHeaders: Headers, paramsAsUrlEncoded): Promise<RawResult> {
-        if (!this._loggedIn) {
-            await this.login();
-            return await this._baseRequestRaw(url, params, method, additionalHeaders, paramsAsUrlEncoded);
-        }
-
-        if (!params)
-            params = {};
-        params.countryCode = params.countryCode ? params.countryCode : this._countryCode;
-
-        let headers = additionalHeaders;
-        if (!headers) {
-            headers = new Headers();
-
-
-        }
-        headers.append('Origin', 'http://listen.tidal.com');
-        headers.append('X-Tidal-SessionId', this._sessionId);
-
-        let body: string | URLSearchParams;
-
-        if (paramsAsUrlEncoded) {
-            body = new URLSearchParams();
-            for (const key in params) {
-                body.append(key, params[key]);
-            }
-        } else {
-            if(method?.toUpperCase() === "GET"){
-                const urlParams = (Object.keys(params).reduce((p, c) => p + `&${c}=${encodeURIComponent(params[c])}`, '')).replace("&", "?")
-
-                url += urlParams;
-            }
-            body = null;
-        }
-
-        const result = await fetch(baseURL + url, {
-            method,
-            headers,
-            body: body
-        });
-        // execute http request
-        const data = await result.json() as any[] | any;
-
-        return {
-            data,
-            responseHeaders: result.headers
-        } as RawResult;
-    }
-
     /**
-     * Base request function.
+     * api logged in
+     * @type {null|String}
      */
-    private async _baseRequest(url: string, params, method: string = "GET", additionalHeaders: Headers = null, paramsAsUrlEncoded: boolean = false): Promise<any[] | any> {
-        return (await this._baseRequestRaw(url, params, method, additionalHeaders, paramsAsUrlEncoded)).data;
+    private _loggedIn = false;
+
+    get loggedIn(): boolean {
+        return this._loggedIn;
     }
 
     /**
@@ -319,7 +261,6 @@ export class TidalAPI {
         return result.responseHeaders.get("etag");
     }
 
-
     public async addTracksToPlaylist(songIds: string[], playlistId: string) {
         const self = this;
         const url = "/playlists/" + encodeURIComponent(playlistId) + "/items";
@@ -380,7 +321,6 @@ export class TidalAPI {
         return (await this.createPlaylist(title, description));
     }
 
-
     /**
      * Get track stream URL.
      * @param songId
@@ -392,5 +332,61 @@ export class TidalAPI {
         width = width ?? 1280;
         height = height ?? 1280;
         return 'https://resources.tidal.com/images/' + songId.replace(/-/g, '/') + '/' + width + 'x' + height + '.jpg';
+    }
+
+    private async _baseRequestRaw(url: string, params = null, method: string, additionalHeaders: Headers, paramsAsUrlEncoded): Promise<RawResult> {
+        if (!this._loggedIn) {
+            await this.login();
+            return await this._baseRequestRaw(url, params, method, additionalHeaders, paramsAsUrlEncoded);
+        }
+
+        if (!params)
+            params = {};
+        params.countryCode = params.countryCode ? params.countryCode : this._countryCode;
+
+        let headers = additionalHeaders;
+        if (!headers) {
+            headers = new Headers();
+
+
+        }
+        headers.append('Origin', 'http://listen.tidal.com');
+        headers.append('X-Tidal-SessionId', this._sessionId);
+
+        let body: string | URLSearchParams;
+
+        if (paramsAsUrlEncoded) {
+            body = new URLSearchParams();
+            for (const key in params) {
+                body.append(key, params[key]);
+            }
+        } else {
+            if(method?.toUpperCase() === "GET"){
+                const urlParams = (Object.keys(params).reduce((p, c) => p + `&${c}=${encodeURIComponent(params[c])}`, '')).replace("&", "?")
+
+                url += urlParams;
+            }
+            body = null;
+        }
+
+        const result = await fetch(baseURL + url, {
+            method,
+            headers,
+            body: body
+        });
+        // execute http request
+        const data = await result.json() as any[] | any;
+
+        return {
+            data,
+            responseHeaders: result.headers
+        } as RawResult;
+    }
+
+    /**
+     * Base request function.
+     */
+    private async _baseRequest(url: string, params, method: string = "GET", additionalHeaders: Headers = null, paramsAsUrlEncoded: boolean = false): Promise<any[] | any> {
+        return (await this._baseRequestRaw(url, params, method, additionalHeaders, paramsAsUrlEncoded)).data;
     }
 }
