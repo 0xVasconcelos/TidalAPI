@@ -1,50 +1,40 @@
-var TidalAPI = require('../');
-
-
-var api = new TidalAPI({
+"use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const TidalAPI_1 = require("../lib/TidalAPI");
+// note if your are using it in your project, you probalby want to change it to:
+// import {TidalAPI} from "TidalAPI";
+const api = new TidalAPI_1.TidalAPI({
     username: '',
     password: '',
-    token: '_KM2HixcUBZtmktH',
-    clientVersion: '2.2.1--7',
-    quality: 'LOSSLESS'
+    quality: 'LOSSLESS' // also HIGH is possible
 });
-
-api.search({type: 'artists', query: 'Dream Theater', limit: 1}, function(data){
-  console.log(data.artists);
-})
-
-api.search({type: 'albums', query: 'Dream Theater', limit: 1}, function(data){
-  console.log(data.albums);
-})
-
-api.search({type: 'tracks', query: 'Dream Theater', limit: 1}, function(data){
-  console.log(data.tracks);
-})
-
-api.search({type: 'tracks,albums,artists', query: 'Dream Theater', limit: 1}, function(data){
-  console.log(data.tracks);
-  console.log(data.albums);
-  console.log(data.artists);
-})
-
-api.getTrackInfo({id: 22560696 }, function(data){
-  console.log(data)
-})
-
-api.getStreamURL({id: 22560696}, function(data){
-  console.log(data)
-})
-
-api.getVideoStreamURL({id: 25470315}, function(data){
-  console.log(data)
-})
-
-console.log(api.getArtURL('24f52ab0-e7d6-414d-a650-20a4c686aa57', 1280)) //coverid
-
-api.getArtistVideos({id: 14670, limit: 2}, function(data){
-  console.log(data)
-})
-
-api.genMetaflacTags({id: 22560696, coverPath: './albumart.jpg', songPath: './song.flac'}, function(data){
-  console.log(data)
-})
+// async wrapper method
+(() => __awaiter(void 0, void 0, void 0, function* () {
+    const artists = yield api.search({ query: 'Dream Theater', limit: 1, types: "artists" });
+    console.log(artists);
+    const albums = yield api.search({ types: 'albums', query: 'Dream Theater', limit: 1 });
+    console.log(albums);
+    const tracks = yield api.search({ types: 'tracks', query: 'Dream Theater', limit: 1 });
+    console.log(tracks);
+    const search = yield api.search({ types: 'tracks,albums,artists', query: 'Dream Theater', limit: 1 });
+    console.log(JSON.stringify(search));
+    const info = yield api.getTrackInfo("22560696");
+    console.log(info);
+    const streamUrl = yield api.getStreamUrl("22560696");
+    console.log(streamUrl);
+    const videoStreamUrl = yield api.getStreamUrl("25470315");
+    console.log(videoStreamUrl);
+    console.log(api.getArtUrlSync('24f52ab0-e7d6-414d-a650-20a4c686aa57', 1280));
+    const artistVideos = yield api.getArtistVideos("14670", { limit: 2 });
+    console.log(artistVideos);
+}))();
+//# sourceMappingURL=search.js.map

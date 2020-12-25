@@ -1,5 +1,8 @@
+**/*/creds.json
 /node_modules/
 /npm-debug.log
 yarn.lock
-test/creds.json
+package-lock.json
 .idea/
+examples/*.js
+examples/*.js.map

@@ -1,33 +1,40 @@
 {
-  "name": "tidalapi",
-  "version": "0.2.3",
-  "description": "Unofficial Node.js TIDAL API",
-  "main": "./lib/client.js",
+  "name": "tidalapi-ts",
+  "version": "2.0.0",
+  "description": "Unofficial Node.js TIDAL API with support for TypeScript and async/await",
+  "main": "./lib/TidalAPI.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha -r ts-node/register lib/**/*.test.ts"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lucaslg26/TidalAPI.git"
+    "url": "git+https://github.com/max-huster/TidalAPI"
   },
   "keywords": [
     "node",
     "tidal",
     "api",
     "music",
-    "flac"
+    "flac",
+    "typescript"
   ],
-  "author": "Lucas Vasconcelos (lucaslg26@gmail.com)",
+  "author": "Max Huster (maxekinge@gmail.com)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/lucaslg26/TidalAPI/issues"
+    "url": "https://github.com/max-huster/TidalAPI/issues"
   },
-  "homepage": "https://github.com/lucaslg26/TidalAPI#readme",
+  "homepage": "https://github.com/max-huster/TidalAPI#readme",
   "dependencies": {
-    "axios": "^0.19.2",
-    "qs": "^6.9.4"
+    "node-fetch": "^2.6.1"
   },
   "devDependencies": {
-    "mocha": "^2.4.5"
+    "@types/chai": "^4.2.14",
+    "@types/lodash": "^4.14.166",
+    "@types/node": "^14.14.16",
+    "@types/node-fetch": "^2.5.7",
+    "chai": "^4.2.0",
+    "mocha": "^2.4.5",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.1.3"
   }
 }
