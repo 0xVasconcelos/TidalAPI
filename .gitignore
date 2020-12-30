@@ -1,8 +1,7 @@
 **/*/creds.json
 /node_modules/
 /npm-debug.log
-yarn.lock
-package-lock.json
 .idea/
 examples/*.js
 examples/*.js.map
+
