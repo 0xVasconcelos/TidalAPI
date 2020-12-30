@@ -100,7 +100,8 @@ describe('TidalAPI', function () {
                 it('should add tracks to playlist', async function () {
                     const songs = ["136765624", "123651236"]
                     const resp = await api.addTracksToPlaylist(songs, playlistId);
-                    expect(resp.addedItemIds.map(x => x.toString())).to.include(songs);
+                    expect(resp.addedItemIds.map(x => x.toString())).to.deep.include(songs[0]);
+                    expect(resp.addedItemIds.map(x => x.toString())).to.deep.include(songs[1]);
                 });
                 it(`should delete playlist with title: "${playlistTitle}"`, async function () {
                     const delResp = await api.deletePlaylist(playlistId);
