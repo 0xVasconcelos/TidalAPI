@@ -4,6 +4,7 @@ import {RawResult} from "./model/RawResult";
 import * as _ from "lodash";
 import fetch from "node-fetch";
 import {Headers} from "node-fetch";
+import {TidalArrayResult} from "./model/TidalArrayResult";
 
 const baseURL = 'https://api.tidalhifi.com/v1';
 
@@ -251,7 +252,7 @@ export class TidalAPI {
      * @param userId
      * @param query
      */
-    public async getPlaylists(userId: string = null, query: SearchParams = null) {
+    public async getPlaylists(userId: string = null, query: SearchParams = null): Promise<TidalArrayResult<any>> {
         return await this._baseRequest('/users/' + encodeURIComponent(userId ?? this._userId) + "/playlists", query);
     }
 
@@ -259,6 +260,10 @@ export class TidalAPI {
         const url = "/playlists/" + encodeURIComponent(playlistId);
         const result = await this._baseRequestRaw(url, {}, "GET", null, false);
         return result.responseHeaders.get("etag");
+    }
+
+    public async deletePlaylist(playlistId: string) {
+        return await this._baseRequest('/playlists/' + encodeURIComponent(playlistId), null, "DELETE", null, false, true);
     }
 
     public async addTracksToPlaylist(songIds: string[], playlistId: string) {
@@ -283,11 +288,11 @@ export class TidalAPI {
     };
 
     public async findPlaylistsByName(title: string): Promise<any[]> {
-        const myPlaylists = await this.getPlaylists(null, {
+        const myPlaylists: TidalArrayResult<any> = await this.getPlaylists(null, {
             limit: 999
         });
 
-        return _.filter(myPlaylists, x => x.title === title);
+        return _.filter(myPlaylists.items, x => x.title === title);
     }
 
     /**
@@ -334,7 +339,7 @@ export class TidalAPI {
         return 'https://resources.tidal.com/images/' + songId.replace(/-/g, '/') + '/' + width + 'x' + height + '.jpg';
     }
 
-    private async _baseRequestRaw(url: string, params = null, method: string, additionalHeaders: Headers, paramsAsUrlEncoded): Promise<RawResult> {
+    private async _baseRequestRaw(url: string, params = null, method: string, additionalHeaders: Headers, paramsAsUrlEncoded, emptyResponse = false): Promise<RawResult> {
         if (!this._loggedIn) {
             await this.login();
             return await this._baseRequestRaw(url, params, method, additionalHeaders, paramsAsUrlEncoded);
@@ -343,6 +348,7 @@ export class TidalAPI {
         if (!params)
             params = {};
         params.countryCode = params.countryCode ? params.countryCode : this._countryCode;
+        params.sessionId = params.sessionId ?? this._sessionId;
 
         let headers = additionalHeaders;
         if (!headers) {
@@ -361,22 +367,23 @@ export class TidalAPI {
                 body.append(key, params[key]);
             }
         } else {
-            if(method?.toUpperCase() === "GET"){
+            if (method?.toUpperCase() === "GET") {
                 const urlParams = (Object.keys(params).reduce((p, c) => p + `&${c}=${encodeURIComponent(params[c])}`, '')).replace("&", "?")
 
                 url += urlParams;
             }
             body = null;
         }
-
+        // execute http request
         const result = await fetch(baseURL + url, {
             method,
             headers,
             body: body
         });
-        // execute http request
-        const data = await result.json() as any[] | any;
-
+        let data: any;
+        if (!emptyResponse) {
+            data = await result.json() as any[] | any;
+        }
         return {
             data,
             responseHeaders: result.headers
@@ -386,7 +393,7 @@ export class TidalAPI {
     /**
      * Base request function.
      */
-    private async _baseRequest(url: string, params, method: string = "GET", additionalHeaders: Headers = null, paramsAsUrlEncoded: boolean = false): Promise<any[] | any> {
-        return (await this._baseRequestRaw(url, params, method, additionalHeaders, paramsAsUrlEncoded)).data;
+    private async _baseRequest(url: string, params, method: string = "GET", additionalHeaders: Headers = null, paramsAsUrlEncoded: boolean = false, expectEmptyResult = false): Promise<any[] | any> {
+        return (await this._baseRequestRaw(url, params, method, additionalHeaders, paramsAsUrlEncoded, expectEmptyResult)).data;
     }
 }

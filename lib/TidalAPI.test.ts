@@ -2,10 +2,16 @@ import TidalAPI = require("./TidalAPI")
 import * as fs from "fs";
 import {describe, it, before} from "mocha";
 import {expect} from "chai";
+import {randomInt} from "crypto";
 
 const username = process.env.TIDALUSERNAME;
 const password = process.env.TIDALPASSWORD;
 
+function randomNumber(min, max) {
+    return Math.floor(
+        Math.random() * (max - min + 1) + min
+    )
+}
 
 describe('TidalAPI', function () {
     describe("Pre-Test (Login)", function () {
@@ -58,33 +64,33 @@ describe('TidalAPI', function () {
                 });
             });
 
-            describe('checkIfPlaylistExists', function () {
-                it('should not find any playlist with title: `Testplaylist1`', async function () {
-                    const resp = await api.checkIfPlaylistExists('Testplaylist1');
-                    expect(resp).to.not.eq(null);
+            describe('Create playlist, add tracks and delete playlist', function () {
+                const suffix = randomNumber(100000, 999999);
+                const playlistTitle = "Testplaylist #" + suffix;
+                it(`should not find any playlist with title: "${playlistTitle}"`, async function () {
+                    const resp = await api.findPlaylistsByName(playlistTitle);
+                    expect(resp.length).to.eq(0);
                 });
-            });
-            let playlistId = null;
-            describe('createPlaylist', function () {
-                it.skip('should create a playlist with title: `Testplaylist`', async function () {
-                    const resp = await api.createPlaylist('Testplaylist', "this is a test!");
+                let playlistId: string = "";
+                it(`should create a playlist with title: "${playlistTitle}"`, async function () {
+                    const resp = await api.createPlaylist(playlistTitle, "This is a Test!");
                     playlistId = resp;
                     expect(playlistId).to.not.eq("");
                     expect(playlistId).to.not.eq(null);
                 });
-            });
-            describe('checkIfPlaylistExists', function () {
-                it('should not find a playlist with title: `Testplaylist`', async function () {
-                    const resp = await api.checkIfPlaylistExists('Testplaylist');
-                    expect(resp).to.eq(playlistId);
+                it(`should find a playlist with title: "${playlistTitle}"`, async function () {
+                    const resp = await api.findPlaylistsByName(playlistTitle);
+                    expect(resp.map(x=>x.uuid)).to.deep.contain(playlistId);
                 });
-            });
-
-            describe('addTracksToPlaylistAsync', function () {
                 it.skip('should add tracks to playlist', async function () {
                     const songs = ["136765624", "123651236"]
                     const resp = await api.addTracksToPlaylist(songs, playlistId);
                     expect(resp.addedItemIds.map(x => x.toString())).to.include(songs);
+                });
+                it(`should delete playlist with title: "${playlistTitle}"`, async function () {
+                    const delResp = await api.deletePlaylist(playlistId);
+                    const resp = await api.findPlaylistsByName(playlistTitle);
+                    expect(resp.map(x => x.uuid)).to.not.deep.contain(playlistId);
                 });
             });
         })
