@@ -53,7 +53,7 @@ describe('TidalAPI', function () {
                 expect(result.tracks.items.length).to.eq(1);
                 result = await api.search("Linkin Park Numb");
                 expect(result.tracks.items.length).to.gte(1);
-
+                // console.log(JSON.stringify(result, null, 2));
             });
         });
 

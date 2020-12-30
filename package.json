@@ -1,6 +1,6 @@
 {
   "name": "tidalapi-ts",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "Unofficial Node.js TIDAL API with support for TypeScript and async/await",
   "main": "./lib/TidalAPI.js",
   "scripts": {

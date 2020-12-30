@@ -1,6 +1,9 @@
+import {TidalArtist} from "./TidalArtist";
+
 export interface TidalTrack {
     id: number;
     title: string;
+    artists: TidalArtist[];
     /**
      * Duration in seconds
      */
