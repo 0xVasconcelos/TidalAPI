@@ -20,11 +20,11 @@ Originally created by [Lucas Vasconcelos](https://github.com/lucaslg26)
 Run the following:
 
 ```
-npm install tidalapi
+npm install tidalapi-ts
 ```
 or if you are using yarn instead of npm:
 ```
-yarn add tidalapi
+yarn add tidalapi-ts
 ```
 ## Usage
 
