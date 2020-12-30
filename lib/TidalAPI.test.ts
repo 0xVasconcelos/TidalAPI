@@ -3,10 +3,8 @@ import * as fs from "fs";
 import {describe, it, before} from "mocha";
 import {expect} from "chai";
 
-const content = JSON.parse(fs.readFileSync("./lib/creds.json", {encoding: "utf8"}));
-
-const username = content.username;
-const password = content.password;
+const username = process.env.TIDALUSERNAME;
+const password = process.env.TIDALPASSWORD;
 
 
 describe('TidalAPI', function () {
@@ -68,7 +66,7 @@ describe('TidalAPI', function () {
             });
             let playlistId = null;
             describe('createPlaylist', function () {
-                it('should create a playlist with title: `Testplaylist`', async function () {
+                it.skip('should create a playlist with title: `Testplaylist`', async function () {
                     const resp = await api.createPlaylist('Testplaylist', "this is a test!");
                     playlistId = resp;
                     expect(playlistId).to.not.eq("");
@@ -83,7 +81,7 @@ describe('TidalAPI', function () {
             });
 
             describe('addTracksToPlaylistAsync', function () {
-                it('should add tracks to playlist', async function () {
+                it.skip('should add tracks to playlist', async function () {
                     const songs = ["136765624", "123651236"]
                     const resp = await api.addTracksToPlaylist(songs, playlistId);
                     expect(resp.addedItemIds.map(x => x.toString())).to.include(songs);

@@ -1,6 +1,6 @@
 # TidalAPI
 
-[![Build Status](https://img.shields.io/travis/lucaslg26/TidalAPI.svg)](https://travis-ci.org/lucaslg26/TidalAPI) [![npm version](http://img.shields.io/npm/v/tidalapi.svg)](https://npmjs.org/package/tidalapi) [![npm downloads](https://img.shields.io/npm/dm/tidalapi.svg)](https://npmjs.org/package/tidalapi) [![NPM](https://img.shields.io/npm/l/tidalapi.svg)](https://github.com/lucaslg26/TidalAPI/blob/master/LICENSE.md) [![David](https://img.shields.io/david/lucaslg26/TidalAPI.svg)](https://david-dm.org/lucaslg26/TidalAPI)
+[![Build Status](https://travis-ci.com/max-huster/TidalAPI.svg?branch=master)](https://travis-ci.org/max-huster/TidalAPI) [![npm version](http://img.shields.io/npm/v/tidalapi.svg)](https://npmjs.org/package/tidalapi) [![npm downloads](https://img.shields.io/npm/dm/tidalapi.svg)](https://npmjs.org/package/tidalapi) [![NPM](https://img.shields.io/npm/l/tidalapi.svg)](https://github.com/lucaslg26/TidalAPI/blob/master/LICENSE.md) [![David](https://img.shields.io/david/lucaslg26/TidalAPI.svg)](https://david-dm.org/lucaslg26/TidalAPI)
 
 ## About
 
@@ -107,3 +107,11 @@ const gguid = await createPlaylistIfNotExists("MyPlaylist");
 ### 500 error with 'Ooops, an unexpected error occurred'
 
 Your TIDAL token is likely incorrect.
+
+## Testing
+
+If you want to run the Unit-Tests you need to specify your Tidal Login Credentials in the ENV parameters like so:
+```
+TIDALUSERNAME=your-username
+TIDALPASSWORD=your-password
+```
