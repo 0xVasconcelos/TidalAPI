@@ -5,6 +5,7 @@ import * as _ from "lodash";
 import fetch from "node-fetch";
 import {Headers} from "node-fetch";
 import {TidalArrayResult} from "./model/TidalArrayResult";
+import {TidalSearchResult} from "./model/TidalSearchResult";
 
 const baseURL = 'https://api.tidalhifi.com/v1';
 
@@ -110,8 +111,15 @@ export class TidalAPI {
      * Global search.
      * @param
      */
-    public async search(query: SearchParams | string) {
-        return await this._baseRequest('/search', query);
+    public async search(query: SearchParams | string): Promise<TidalSearchResult> {
+        let queryObj: SearchParams = {};
+        if (typeof query === "string") {
+            queryObj.query = query;
+            queryObj.limit = 100;
+        } else {
+            queryObj = query;
+        }
+        return await this._baseRequest('/search', queryObj);
     }
 
     /**

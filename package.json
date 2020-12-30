@@ -1,10 +1,11 @@
 {
   "name": "tidalapi-ts",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "Unofficial Node.js TIDAL API with support for TypeScript and async/await",
   "main": "./lib/TidalAPI.js",
   "scripts": {
-    "test": "yarn run mocha -r ts-node/register lib/**/*.test.ts"
+    "test": "yarn run mocha -r ts-node/register lib/**/*.test.ts",
+    "build": "yarn run tsc"
   },
   "repository": {
     "type": "git",

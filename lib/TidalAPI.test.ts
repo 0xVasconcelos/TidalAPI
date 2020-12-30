@@ -3,6 +3,7 @@ import * as fs from "fs";
 import {describe, it, before} from "mocha";
 import {expect} from "chai";
 import {randomInt} from "crypto";
+import exp = require("constants");
 
 const username = process.env.TIDALUSERNAME;
 const password = process.env.TIDALPASSWORD;
@@ -42,6 +43,20 @@ describe('TidalAPI', function () {
                 expect(api.getMyId()).to.not.eq(null);
             });
         });
+
+        describe('Search', function () {
+            it('should find one or more tracks', async function () {
+                let result = await api.search({
+                    query: "Linkin Park Numb",
+                    limit: 1
+                });
+                expect(result.tracks.items.length).to.eq(1);
+                result = await api.search("Linkin Park Numb");
+                expect(result.tracks.items.length).to.gte(1);
+
+            });
+        });
+
         describe("Playlist", function () {
             this.timeout(5000);
             describe('getPlaylist', function () {
@@ -80,9 +95,9 @@ describe('TidalAPI', function () {
                 });
                 it(`should find a playlist with title: "${playlistTitle}"`, async function () {
                     const resp = await api.findPlaylistsByName(playlistTitle);
-                    expect(resp.map(x=>x.uuid)).to.deep.contain(playlistId);
+                    expect(resp.map(x => x.uuid)).to.deep.contain(playlistId);
                 });
-                it.skip('should add tracks to playlist', async function () {
+                it('should add tracks to playlist', async function () {
                     const songs = ["136765624", "123651236"]
                     const resp = await api.addTracksToPlaylist(songs, playlistId);
                     expect(resp.addedItemIds.map(x => x.toString())).to.include(songs);
