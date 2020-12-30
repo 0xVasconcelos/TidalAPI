@@ -4,8 +4,7 @@
   "description": "Unofficial Node.js TIDAL API with support for TypeScript and async/await",
   "main": "./lib/TidalAPI.js",
   "scripts": {
-    "pretest": "npm install",
-    "test": "mocha -r ts-node/register lib/**/*.test.ts"
+    "test": "yarn run mocha -r ts-node/register lib/**/*.test.ts"
   },
   "repository": {
     "type": "git",
