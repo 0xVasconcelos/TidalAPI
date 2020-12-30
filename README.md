@@ -1,6 +1,6 @@
 # TidalAPI
 
-[![Build Status](https://travis-ci.com/max-huster/TidalAPI.svg?branch=master)](https://travis-ci.org/max-huster/TidalAPI) [![npm version](http://img.shields.io/npm/v/tidalapi.svg)](https://npmjs.org/package/tidalapi) [![npm downloads](https://img.shields.io/npm/dm/tidalapi.svg)](https://npmjs.org/package/tidalapi) [![NPM](https://img.shields.io/npm/l/tidalapi.svg)](https://github.com/lucaslg26/TidalAPI/blob/master/LICENSE.md) [![David](https://img.shields.io/david/lucaslg26/TidalAPI.svg)](https://david-dm.org/lucaslg26/TidalAPI)
+[![Build Status](https://www.travis-ci.com/max-huster/TidalAPI.svg?branch=master)](https://www.travis-ci.com/github/max-huster/TidalAPI) 
 
 ## About
 
