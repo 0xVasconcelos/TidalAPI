@@ -1,4 +1,4 @@
-# TidalAPI
+# TidalAPI-TS
 
 [![Build Status](https://www.travis-ci.com/max-huster/TidalAPI.svg?branch=master)](https://www.travis-ci.com/github/max-huster/TidalAPI)
 [![npm version](https://img.shields.io/npm/v/tidalapi-ts.svg)](https://npmjs.org/package/tidalapi-ts)
