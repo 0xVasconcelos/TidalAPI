@@ -57,6 +57,14 @@ describe('TidalAPI', function () {
             });
         });
 
+        describe('getTrackInfo', function () {
+            it('should return Track info', async function () {
+                const info = await api.getTrackInfo("162638200");
+                console.log(info);
+                expect(info.title).to.eq("What I've Done");
+            });
+        });
+
         describe("Playlist", function () {
             this.timeout(5000);
             describe('getPlaylist', function () {

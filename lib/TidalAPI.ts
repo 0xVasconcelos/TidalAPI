@@ -6,6 +6,7 @@ import fetch from "node-fetch";
 import {Headers} from "node-fetch";
 import {TidalArrayResult} from "./model/TidalArrayResult";
 import {TidalSearchResult} from "./model/TidalSearchResult";
+import {TidalTrack} from "./model/TidalTrack";
 
 const baseURL = 'https://api.tidalhifi.com/v1';
 
@@ -218,7 +219,7 @@ export class TidalAPI {
      * @param trackId
      * @param callback
      */
-    public async getTrackInfo(trackId: string) {
+    public async getTrackInfo(trackId: string): Promise<TidalTrack> {
         return await this._baseRequest('/tracks/' + encodeURIComponent(trackId), {});
     }
 
