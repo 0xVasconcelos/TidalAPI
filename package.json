@@ -1,13 +1,12 @@
 {
   "name": "tidalapi-ts",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "description": "Unofficial Node.js TIDAL API with support for TypeScript and async/await",
   "main": "./lib/TidalAPI.js",
   "scripts": {
     "test": "yarn run mocha -r ts-node/register lib/**/*.test.ts",
     "build": "yarn run tsc",
     "bin": "yarn node ./src/bin/tidal-playlist-import.js"
-
   },
   "repository": {
     "type": "git",
