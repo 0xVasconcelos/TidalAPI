@@ -1,9 +1,9 @@
-import {TidalArtist} from "./TidalArtist";
+import {TidalArtistInfoFull} from "./TidalArtist";
 
 export interface TidalTrack {
     id: number;
     title: string;
-    artists: TidalArtist[];
+    artists: TidalArtistInfoFull[];
     /**
      * Duration in seconds
      */

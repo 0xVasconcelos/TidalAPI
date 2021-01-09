@@ -7,6 +7,13 @@ import {Headers} from "node-fetch";
 import {TidalArrayResult} from "./model/TidalArrayResult";
 import {TidalSearchResult} from "./model/TidalSearchResult";
 import {TidalTrack} from "./model/TidalTrack";
+import {TidalStreamInfo} from "./model/TidalStreamInfo";
+import {TidalError} from "./model/TidalError";
+import {TidalArtistInfoFull} from "./model/TidalArtistInfoFull";
+import {TidalVideo} from "./model/TidalVideo";
+import {TidalBio} from "./model/TidalBio";
+import {TidalSimilarArtist} from "./model/TidalSimilarArtist";
+import {TidalAlbum} from "./model/TidalAlbum";
 
 const baseURL = 'https://api.tidalhifi.com/v1';
 
@@ -32,12 +39,6 @@ export class TidalAPI {
      */
     private _userId: string | null = null;
 
-    /**
-     * TIDAL API stream quality
-     * @type {null|String}
-     * @private
-     */
-    private _streamQuality: string | null = null;
     /**
      * authData
      * @type {Object}
@@ -65,6 +66,9 @@ export class TidalAPI {
         }
 
         this.authData = login;
+        if (!this.authData) {
+            this.authData.quality = "HIGH";
+        }
     }
 
     /**
@@ -128,17 +132,17 @@ export class TidalAPI {
      * @param artistId
      * @param query
      */
-    public async getArtist(artistId: string, query: SearchParams) {
-        return await this._baseRequest('/artists/' + encodeURIComponent(artistId), query, 'artist');
+    public async getArtist(artistId: string): Promise<TidalArtistInfoFull> {
+        return await this._baseRequest('/artists/' + encodeURIComponent(artistId), null);
     }
 
     /**
      * Get artist top tracks.
      * @param artistId id of artist
-     * @param query
+     * @param params can be used for paging
      */
-    public async getTopTracks(artistId: string, query: SearchParams) {
-        return await this._baseRequest('/artists/' + encodeURIComponent(artistId) + '/toptracks', query);
+    public async getTopTracks(artistId: string, params: SearchParams = null): Promise<TidalArrayResult<TidalTrack>> {
+        return await this._baseRequest('/artists/' + encodeURIComponent(artistId) + '/toptracks', params);
     }
 
     /**
@@ -146,7 +150,7 @@ export class TidalAPI {
      * @param artistId
      * @param query
      */
-    public async getArtistVideos(artistId: string, query: SearchParams) {
+    public async getArtistVideos(artistId: string, query: SearchParams = null): Promise<TidalArrayResult<TidalVideo>> {
         return await this._baseRequest('/artists/' + encodeURIComponent(artistId) + '/videos', query);
     }
 
@@ -154,7 +158,7 @@ export class TidalAPI {
      * Get artist bio.
      * @param artistId
      */
-    public async getArtistBio(artistId: string) {
+    public async getArtistBio(artistId: string): Promise<TidalBio> {
         return await this._baseRequest('/artists/' + encodeURIComponent(artistId) + '/bio', {});
     }
 
@@ -163,7 +167,7 @@ export class TidalAPI {
      * @param artistId
      * @param query
      */
-    public async getSimilarArtists(artistId: string, query: SearchParams) {
+    public async getSimilarArtists(artistId: string, query: SearchParams = null): Promise<TidalArrayResult<TidalSimilarArtist>> {
         return await this._baseRequest('/artists/' + encodeURIComponent(artistId) + '/similar', query);
     }
 
@@ -173,7 +177,7 @@ export class TidalAPI {
      * @param query
      */
 
-    public async getArtistAlbums(artistId: string, query: SearchParams) {
+    public async getArtistAlbums(artistId: string, query: SearchParams = null): Promise<TidalArrayResult<TidalAlbum>> {
         return await this._baseRequest('/artists/' + encodeURIComponent(artistId) + '/albums', query);
     }
 
@@ -182,8 +186,8 @@ export class TidalAPI {
      * @param albumId
      * @param query
      */
-    public async getAlbum(albumId: string, query: SearchParams) {
-        return await this._baseRequest('/albums/' + encodeURIComponent(albumId), query);
+    public async getAlbum(albumId: string): Promise<TidalAlbum> {
+        return await this._baseRequest('/albums/' + encodeURIComponent(albumId), null);
     }
 
     /**
@@ -192,7 +196,7 @@ export class TidalAPI {
      * @param query
      */
 
-    public async getAlbumTracks(albumId: string, query: SearchParams) {
+    public async getAlbumTracks(albumId: string, query: SearchParams = null): Promise<TidalArrayResult<TidalTrack>> {
         return await this._baseRequest('/albums/' + encodeURIComponent(albumId) + '/tracks', query);
     }
 
@@ -227,15 +231,15 @@ export class TidalAPI {
      * Get track stream URL.
      * @param trackId
      */
-    public async getStreamUrl(trackId: string) {
+    public async getStreamUrl(trackId: string): Promise<TidalStreamInfo> {
         return await this._baseRequest('/tracks/' + encodeURIComponent(trackId) + '/streamUrl', {
-            soundQuality: this._streamQuality
+            soundQuality: this.authData.quality
         });
     }
 
     public async getOfflineURL(trackId: string) {
         return await this._baseRequest('/tracks/' + encodeURIComponent(trackId) + '/offlineUrl', {
-            soundQuality: this._streamQuality
+            soundQuality: this.authData.quality
         });
     }
 
@@ -362,8 +366,6 @@ export class TidalAPI {
         let headers = additionalHeaders;
         if (!headers) {
             headers = new Headers();
-
-
         }
         headers.append('Origin', 'http://listen.tidal.com');
         headers.append('X-Tidal-SessionId', this._sessionId);
@@ -383,6 +385,8 @@ export class TidalAPI {
             }
             body = null;
         }
+        // console.debug(baseURL + url);
+
         // execute http request
         const result = await fetch(baseURL + url, {
             method,
@@ -391,7 +395,10 @@ export class TidalAPI {
         });
         let data: any;
         if (!emptyResponse) {
-            data = await result.json() as any[] | any;
+            data = await result.json();
+        }
+        if (!result.ok) {
+            throw new TidalError(data);
         }
         return {
             data,

@@ -1,12 +1,14 @@
 {
   "name": "tidalapi-ts",
-  "version": "2.0.6",
+  "version": "2.1.0",
   "description": "Unofficial Node.js TIDAL API with support for TypeScript and async/await",
   "main": "./lib/TidalAPI.js",
   "scripts": {
     "test": "yarn run mocha -r ts-node/register lib/**/*.test.ts",
     "build": "yarn run tsc",
-    "bin": "yarn node ./src/bin/tidal-playlist-import.js"
+    "bin": "yarn node ./src/bin/tidal-playlist-import.js",
+    "coverage": "nyc npm run test",
+    "coverage-report": "nyc report --reporter=lcov"
   },
   "repository": {
     "type": "git",
@@ -37,6 +39,7 @@
     "@types/node-fetch": "^2.5.7",
     "chai": "^4.2.0",
     "mocha": "^8.2.1",
+    "nyc": "^15.1.0",
     "ts-node": "^9.1.1",
     "typescript": "^4.1.3"
   }

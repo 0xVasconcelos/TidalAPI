@@ -4,4 +4,4 @@
 .idea/
 examples/*.js
 examples/*.js.map
-
+coverage/

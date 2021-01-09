@@ -15,6 +15,30 @@ function randomNumber(min, max) {
 }
 
 describe('TidalAPI', function () {
+    describe('Constructor testing', function () {
+        it('should fail', function () {
+            expect(() => {
+                // @ts-ignore
+                const x = new TidalAPI.TidalAPI("null");
+            }).to.throw;
+            expect(() => {
+                // @ts-ignore
+                const x = new TidalAPI.TidalAPI({
+                    username: null,
+                    quality: "HIGH",
+                    password: "password"
+                });
+            }).to.throw;
+            expect(() => {
+                // @ts-ignore
+                const x = new TidalAPI.TidalAPI({
+                    username: "username",
+                    quality: "HIGH",
+                    password: null
+                });
+            }).to.throw;
+        });
+    });
     describe("Pre-Test (Login)", function () {
         it('Username should be filled', function () {
             expect(username).to.not.eq('');
@@ -33,7 +57,7 @@ describe('TidalAPI', function () {
             api = new TidalAPI.TidalAPI({
                 username: username,
                 password: password,
-                quality: 'HIGH'
+                quality: 'LOW'
             });
         });
         describe('Login', function () {
@@ -57,11 +81,77 @@ describe('TidalAPI', function () {
             });
         });
 
+        const trackId = "162638200";
+
         describe('getTrackInfo', function () {
             it('should return Track info', async function () {
-                const info = await api.getTrackInfo("162638200");
+                const info = await api.getTrackInfo(trackId);
                 console.log(info);
                 expect(info.title).to.eq("What I've Done");
+            });
+        });
+
+        describe("getStreamUrl", function () {
+            it('should return a valid url', async function () {
+                const urlInfo = await api.getStreamUrl(trackId);
+                // console.log(urlInfo);
+                expect(urlInfo.url).to.not.empty;
+            });
+        });
+        describe("getOfflineURL", function () {
+            it.skip('should return a valid url', async function () {
+                const url = await api.getOfflineURL(trackId);
+                console.log(url);
+                expect(url).to.not.empty;
+                expect(url).to.not.null;
+            });
+        });
+        describe('Artist', function () {
+
+            it('should get Artist Linkin Park', async function () {
+                const artist = await api.getArtist("14123");
+                // console.log(artist);
+                expect(artist.name).to.eq("Linkin Park");
+            });
+
+            it('should get more than 0 Top Tracks', async function () {
+                const topTracks = await api.getTopTracks("14123");
+                expect(topTracks.items.length).gt(0);
+            });
+
+            it('should getArtistVideos', async function () {
+                const videos = await api.getArtistVideos("14123", null);
+                // console.log(JSON.stringify(videos));
+                expect(videos.items.length).gt(0);
+            });
+
+            it('should getArtistBio', async function () {
+                const bio = await api.getArtistBio("14123");
+                expect(bio.text).to.not.be.empty;
+            });
+            it('should getSimilarArtists', async function () {
+                const similar = await api.getSimilarArtists("14123");
+                // console.log(JSON.stringify(similar, null, 2));
+                expect(similar.items.length).to.be.greaterThan(0);
+            });
+
+        });
+
+        describe('Albums', function () {
+            it('should getArtistAlbums', async function () {
+                const albums = await api.getArtistAlbums("14123")
+                //console.log(JSON.stringify(albums, null, 2));
+                expect(albums.items.length).to.be.greaterThan(0);
+            });
+            it('should getAlbum', async function () {
+                const album = await api.getAlbum("82262123");
+                console.log(JSON.stringify(album, null, 2));
+                expect(album.title).to.be.equal("One More Light Live");
+            });
+            it('should getAlbumTracks', async function () {
+                const tracks = await api.getAlbumTracks("82262123");
+                // console.log(JSON.stringify(tracks, null, 2));
+                expect(tracks.items.length).to.be.greaterThan(0);
             });
         });
 
