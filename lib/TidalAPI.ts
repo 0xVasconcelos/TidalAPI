@@ -346,7 +346,7 @@ export class TidalAPI {
      * @param height
      *
      */
-    public getArtUrlSync(songId: string, width: number = null, height: number = null) {
+    public getArtUrlSync(songId: string, width: number = null, height: number = null): string {
         width = width ?? 1280;
         height = height ?? 1280;
         return 'https://resources.tidal.com/images/' + songId.replace(/-/g, '/') + '/' + width + 'x' + height + '.jpg';
