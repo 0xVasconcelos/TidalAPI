@@ -8,7 +8,7 @@
     "build": "yarn run tsc",
     "bin": "yarn node ./src/bin/tidal-playlist-import.js",
     "coverage": "nyc npm run test",
-    "coverage-report": "nyc report --reporter=json > coverage.json"
+    "coverage-report": "nyc report --reporter=json > coverage/coverage.json"
   },
   "repository": {
     "type": "git",
