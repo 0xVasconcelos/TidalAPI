@@ -6,4 +6,6 @@ cache: yarn
 before_script:
   - npm install codecov -g
 after_script:
+  - yarn run coverage
+  - yarn run coverage-report
   - codecov
