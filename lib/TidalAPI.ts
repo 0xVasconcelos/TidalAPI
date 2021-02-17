@@ -279,13 +279,13 @@ export class TidalAPI {
         return await this._baseRequest('/playlists/' + encodeURIComponent(playlistId), null, "DELETE", null, false, true);
     }
 
-    public async addTracksToPlaylist(songIds: string[], playlistId: string) {
+    public async addTracksToPlaylist(songIds: string[], playlistId: string, onDupes:"FAIL"|"SKIP"|"ADD" = "FAIL") {
         const self = this;
         const url = "/playlists/" + encodeURIComponent(playlistId) + "/items";
         const etag = await self.getETag(playlistId);
         const params = {
             "trackIds": songIds.join(","),
-            "onDupes": "FAIL"
+            "onDupes": onDupes
         };
         const headers = new Headers({"If-None-Match": etag});
         return await this._baseRequest(url, params, "POST", headers, true);
