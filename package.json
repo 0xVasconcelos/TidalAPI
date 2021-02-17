@@ -1,6 +1,6 @@
 {
   "name": "tidalapi-ts",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "Unofficial Node.js TIDAL API with support for TypeScript and async/await",
   "main": "./lib/TidalAPI.js",
   "scripts": {
@@ -33,9 +33,10 @@
     "node-fetch": "^2.6.1"
   },
   "devDependencies": {
-    "@types/chai": "^4.2.14",
+    "@types/chai": "^4.2.15",
     "@types/lodash": "^4.14.166",
-    "@types/node": "^14.14.16",
+    "@types/mocha": "^8.2.1",
+    "@types/node": "^14.14.28",
     "@types/node-fetch": "^2.5.7",
     "chai": "^4.2.0",
     "mocha": "^8.2.1",
